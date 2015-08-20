@@ -8,6 +8,7 @@ var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 
 var routes = require('./routes/')
+var adminRoutes = require('./routes/admin')
 
 console.log('NODE_ENV', process.env.NODE_ENV)
 if(process.env.NODE_ENV === 'production') {
@@ -36,6 +37,9 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.get('/', routes.getIndex)
+
+app.get('/login', adminRoutes.getLogin)
+app.post('/login', adminRoutes.postLogin)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
