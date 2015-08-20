@@ -33,13 +33,23 @@ app.set('view engine', 'jade')
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(cookieParser())
+app.use(cookieParser('thisismysecretcycles'))
 app.use(express.static(path.join(__dirname, 'public')))
+
+var checkAuthorization = function (req, res, next) {
+  if(!req.signedCookies.user) {
+    res.redirect('/login')
+  } else {
+    next()
+  }
+}
 
 app.get('/', routes.getIndex)
 
 app.get('/login', adminRoutes.getLogin)
 app.post('/login', adminRoutes.postLogin)
+
+app.get('/admin/', checkAuthorization, adminRoutes.getDashboard)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
