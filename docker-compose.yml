@@ -6,6 +6,8 @@ app:
     - db
   volumes:
     - .:/app
+  environment:
+    NODE_ENV: development
 
 db:
   image: mongo:latest

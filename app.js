@@ -1,3 +1,5 @@
+var Promise = require('bluebird')
+var mongoose = Promise.promisifyAll(require('mongoose'))
 var express = require('express')
 var path = require('path')
 var favicon = require('serve-favicon')
@@ -6,6 +8,18 @@ var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 
 var routes = require('./routes/')
+
+console.log('NODE_ENV', process.env.NODE_ENV)
+if(process.env.NODE_ENV === 'production') {
+  mongoose.connect(process.env.MONGOHOST, function() {
+    console.log('mongoose connected on', process.env.MONGOHOST)
+  })
+} else {
+  var uri = 'mongodb://' + process.env.DB_PORT_27017_TCP_ADDR + ':27017/cycles'
+  mongoose.connect(uri, function() {
+    console.log('mongoose connected on', uri)
+  })
+}
 
 var app = express()
 
