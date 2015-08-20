@@ -3,18 +3,25 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node start"
+    "start": "node start",
+    "styles": "node-sass styles/main.scss public/build/main.css",
+    "watch": "nodemon -e scss -w styles/ -x \"npm run styles\"",
+    "browser-sync": "browser-sync start --files=\"public/**/*.js, public/**/*.css\" --proxy=\"blackbeard.dev:3000\""
   },
   "dependencies": {
     "bluebird": "^2.9.34",
     "body-parser": "~1.13.3",
+    "browserify": "^11.0.1",
     "cookie-parser": "~1.3.5",
     "debug": "~2.2.0",
     "express": "~4.13.3",
     "jade": "~1.11.0",
     "mongoose": "^4.1.3",
     "morgan": "~1.6.1",
-    "serve-favicon": "~2.3.0",
-    "stylus": "0.52.0"
+    "node-sass": "^3.2.0",
+    "serve-favicon": "~2.3.0"
+  },
+  "devDependencies": {
+    "watchify": "^3.3.1"
   }
 }
