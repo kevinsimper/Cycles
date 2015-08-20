@@ -1,0 +1,1 @@
+nodemon --exec "docker-compose stop -t 0 app && docker-compose start app && docker-compose logs app"
