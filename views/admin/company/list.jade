@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+  div
+    A.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(href='/admin/companies/create').
+      Create
+
+  table.mdl-data-table.mdl-js-data-table.mdl-data-table--selectable.mdl-shadow--2dp
+    thead
+      tr
+        th.mdl-data-table__cell--non-numeric Name
+    tbody
+      each company in companies
+        tr
+          td.mdl-data-table__cell--non-numeric= company.name

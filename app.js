@@ -9,6 +9,7 @@ var bodyParser = require('body-parser')
 
 var routes = require('./routes/')
 var adminRoutes = require('./routes/admin')
+var adminCompanyRoutes = require('./routes/admin/company')
 
 console.log('NODE_ENV', process.env.NODE_ENV)
 if(process.env.NODE_ENV === 'production') {
@@ -49,7 +50,12 @@ app.get('/', routes.getIndex)
 app.get('/login', adminRoutes.getLogin)
 app.post('/login', adminRoutes.postLogin)
 
+app.all('/admin/*', checkAuthorization)
 app.get('/admin/', checkAuthorization, adminRoutes.getDashboard)
+
+app.get('/admin/companies/create', adminCompanyRoutes.getCreate)
+app.post('/admin/companies/create', adminCompanyRoutes.postCreate)
+app.get('/admin/companies', adminCompanyRoutes.getList)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
